@@ -30,6 +30,7 @@ $base-color: rgb(245, 119, 60);
     font-weight: normal;
     font-size: 0.9em;
     font-weight: bold;
+    color: white;
   }
 
   button {
@@ -49,7 +50,8 @@ $base-color: rgb(245, 119, 60);
     gap: 10px;
     .contact-us {
       font-size: 0.9rem;
-      color: black;
+      color: $base-color;
+
     }
 
     a {
