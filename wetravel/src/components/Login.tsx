@@ -1,9 +1,13 @@
 import React from "react";
 import "../components/Login.scss";
 import TextField from "@mui/material/TextField";
+import { useNavigate } from "react-router-dom";
 
-const handleChange = () => {};
 function Login() {
+  const handleChange=()=> {
+
+  }
+  let history = useNavigate();
   return (
     <div className="login">
       <h1>Travellers</h1>
@@ -34,11 +38,12 @@ function Login() {
       </div>
       <div className="contact-us-div">
         <div className="contact-us">Don't have an account?</div>
-
         <a href="/mainpage">Contact us</a>
       </div>
-
-      <button>Log In</button>
+      <button onClick={()=> {
+        console.log('clicked')
+        history('/mainpage')
+      }}>Log In</button>
     </div>
   );
 }
