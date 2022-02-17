@@ -2,7 +2,7 @@
   margin: 0;
 }
 .wrapper {
-  background-color: rgb(218, 212, 212);
+  background-color: rgb(231, 227, 227);
   height: 100vh;
   .mainpage {
     background-image: url(../Images/cover2.jpeg);
@@ -10,7 +10,6 @@
     height: 34vh;
     background-size: cover;
     position: relative;
-    //flex-wrap: wrap;
     h1 {
       color: white;
     }
@@ -94,6 +93,10 @@
             height: 40%;
             width: 30%;
             font-size: 10px;
+          }
+          input[type="text"] {
+            background: transparent;
+            border: none;
           }
         }
       }

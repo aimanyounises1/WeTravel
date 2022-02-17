@@ -2,14 +2,14 @@ import React from "react";
 import "../components/Login.scss";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
+import Logo from "../Images/Travelles.png";
 
 function Login() {
-  const handleChange=()=> {
-
-  }
+  const handleChange = () => {};
   let history = useNavigate();
   return (
     <div className="login">
+      <img src={Logo} />
       <h1>Travellers</h1>
       <p>Travel community app</p>
       <div className="login__inner">
@@ -26,7 +26,7 @@ function Login() {
         />
         <TextField
           id="outlined-uncontrolled"
-          defaultValue="Password"
+          label="Password"
           style={{
             width: "90%",
             margin: "1rem",
@@ -40,10 +40,14 @@ function Login() {
         <div className="contact-us">Don't have an account?</div>
         <a href="/mainpage">Contact us</a>
       </div>
-      <button onClick={()=> {
-        console.log('clicked')
-        history('/mainpage')
-      }}>Log In</button>
+      <button
+        onClick={() => {
+          console.log("clicked");
+          history("/mainpage");
+        }}
+      >
+        Log In
+      </button>
     </div>
   );
 }
