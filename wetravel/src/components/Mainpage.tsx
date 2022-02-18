@@ -2,12 +2,37 @@ import "../components/Mainpage.scss";
 import Rola from "../Images/Rola.jpeg";
 import Search from "../Images/search_logo.png";
 import Card from "./Card";
+import Bottombar from "../components/Bottombar";
+import Travelles from "./Travelers";
 interface Hotel {
   id: string;
   src: string;
   title: string;
 }
 
+export interface travelers {
+  src: string;
+  name: string;
+  country: string;
+}
+
+const travelers: Array<travelers> = [
+  {
+    src: "https://qtxasset.com/quartz/qcloud1/media/image/2016-12/ethical%20traveler.jpg?VersionId=mIycdotTCoKNtVnW0d2g4wvfA.y.bqOw",
+    name: "Jon Doe",
+    country: "England",
+  },
+  {
+    src: "https://qtxasset.com/quartz/qcloud1/media/image/2016-12/ethical%20traveler.jpg?VersionId=mIycdotTCoKNtVnW0d2g4wvfA.y.bqOw",
+    name: "John Smith",
+    country: "Italy",
+  },
+  {
+    src: "https://qtxasset.com/quartz/qcloud1/media/image/2016-12/ethical%20traveler.jpg?VersionId=mIycdotTCoKNtVnW0d2g4wvfA.y.bqOw",
+    name: "Moshe Doe",
+    country: "Thailand",
+  },
+];
 const arr: Array<Hotel> = [
   {
     id: "1",
@@ -62,6 +87,7 @@ function Mainpage() {
           </div>
         </div>
       </div>
+    
       <div className="div_h">
         <h1>Right now at </h1>
         <a href="">See all</a>
@@ -77,8 +103,25 @@ function Mainpage() {
             />
           );
         })}
+     
+
+      {/* <div className="div_h">
+        <h1>Popular travelers</h1>
+        <a href="">See all</a>
       </div>
-      
+      <div className="list">
+        {travelers.map((traveler, index) => {
+          return (
+            <Travelles key={index}
+              src={traveler.src}
+              name={traveler.name}
+              country={traveler.country}
+            />
+          );
+        })}
+      </div> */}
+      </div>
+      <Bottombar />
     </div>
   );
 }
