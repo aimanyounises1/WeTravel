@@ -4,6 +4,7 @@ import Search from "../Images/search_logo.png";
 import Card from "./Card";
 import Bottombar from "../components/Bottombar";
 import Travelles from "./Travelers";
+import { data } from "./Bottombar";
 interface Hotel {
   id: string;
   src: string;
@@ -26,6 +27,11 @@ const travelers: Array<travelers> = [
     src: "https://qtxasset.com/quartz/qcloud1/media/image/2016-12/ethical%20traveler.jpg?VersionId=mIycdotTCoKNtVnW0d2g4wvfA.y.bqOw",
     name: "John Smith",
     country: "Italy",
+  },
+  {
+    src: "https://qtxasset.com/quartz/qcloud1/media/image/2016-12/ethical%20traveler.jpg?VersionId=mIycdotTCoKNtVnW0d2g4wvfA.y.bqOw",
+    name: "Moshe Doe",
+    country: "Thailand",
   },
   {
     src: "https://qtxasset.com/quartz/qcloud1/media/image/2016-12/ethical%20traveler.jpg?VersionId=mIycdotTCoKNtVnW0d2g4wvfA.y.bqOw",
@@ -57,6 +63,7 @@ const arr: Array<Hotel> = [
   },
 ];
 function Mainpage() {
+  const name: data = { name: "Home" };
   return (
     <div className="wrapper">
       <div className="mainpage">
@@ -87,7 +94,7 @@ function Mainpage() {
           </div>
         </div>
       </div>
-    
+
       <div className="div_h">
         <h1>Right now at </h1>
         <a href="">See all</a>
@@ -103,25 +110,26 @@ function Mainpage() {
             />
           );
         })}
-     
+      </div>
 
-      {/* <div className="div_h">
+      <div className="div_h">
         <h1>Popular travelers</h1>
         <a href="">See all</a>
       </div>
       <div className="list">
         {travelers.map((traveler, index) => {
           return (
-            <Travelles key={index}
+            <Travelles
+              key={index}
               src={traveler.src}
               name={traveler.name}
               country={traveler.country}
             />
           );
         })}
-      </div> */}
       </div>
-      <Bottombar />
+
+      <Bottombar name={name.name} />
     </div>
   );
 }
