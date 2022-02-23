@@ -7,6 +7,9 @@ import Travelles from "./Travelers";
 import { data } from "./Bottombar";
 import { useEffect } from "react";
 import axios from "axios";
+import { useAppSelector } from "../hooks/hooks";
+import { userEmail } from "../reducers/userSlice";
+
 interface Hotel {
   id: string;
   src: string;
@@ -75,6 +78,10 @@ const arr: Array<Hotel> = [
   },
 ];
 function Mainpage() {
+  const user_email = useAppSelector(userEmail);
+  console.log(user_email);
+
+
   useEffect(() => {
     axios
       .get("http://localhost:3004/posts")
@@ -93,11 +100,11 @@ function Mainpage() {
           <img src={Rola}></img>
         </div>
         <div className="down">
-          <h1>Travelles</h1>
+          <h1> Welcome to Travelers {user_email}</h1>
           <p>App connect with travel community.</p>
           <div className="search-bar">
             <div className="right-div">
-              <img src={Search}></img>
+              <img src={Search} style={{ color: "#ff4500" }}></img>
             </div>
             <div className="left-div">
               <p>Search for your destination</p>
