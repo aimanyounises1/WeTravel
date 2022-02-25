@@ -8,12 +8,20 @@ import { data } from "./Bottombar";
 import { useEffect } from "react";
 import axios from "axios";
 import { useAppSelector } from "../hooks/hooks";
-import { userEmail } from "../reducers/userSlice";
+import { userEmail, userName } from "../reducers/userSlice";
 
 interface Hotel {
   id: string;
   src: string;
   title: string;
+}
+
+export interface Flights {
+  id: String,
+  name: String,
+  imgUrl: String,
+  from: String,
+  to: String,
 }
 
 export interface travelers {
@@ -57,6 +65,7 @@ const arr: Array<Hotel> = [
   },
   {
     id: "2",
+
     src: "https://media.shichor.co.il/a87daa5f0aeb03962dbac774498bdc87.jpg",
     title: "Sirmione",
   },
@@ -77,6 +86,8 @@ const arr: Array<Hotel> = [
     title: "Las Vegas",
   },
 ];
+
+
 function Mainpage() {
   const user_email = useAppSelector(userEmail);
   console.log(user_email);

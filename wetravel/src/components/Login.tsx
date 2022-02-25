@@ -22,7 +22,7 @@ function Login() {
   const dispatch = useAppDispatch();
   const [userData, setUserdata] = useState({
     email: "",
-    pass: "",
+    name: "",
   });
   const [values, setValues] = React.useState<State>({
     amount: "",
@@ -85,7 +85,7 @@ function Login() {
           label="Password"
           type={values.showPassword ? "text" : "password"}
           onChange={(ev: any) => {
-            setUserdata({ ...userData, pass: ev.target.value });
+            setUserdata({ ...userData, name: ev.target.value });
           }}
           style={{
             width: "90%",
