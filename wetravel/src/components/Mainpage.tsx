@@ -3,104 +3,69 @@ import Rola from "../Images/Rola.jpeg";
 import Search from "../Images/search_logo.png";
 import Card from "./Card";
 import Bottombar from "../components/Bottombar";
-import Travelles from "./Travelers";
 import { data } from "./Bottombar";
-import { useEffect } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { useAppSelector } from "../hooks/hooks";
 import { userEmail, userName } from "../reducers/userSlice";
-
-interface Hotel {
-  id: string;
-  src: string;
-  title: string;
+import Travelers from "./Travelers";
+import faker from "@faker-js/faker";
+import axios from "../axios/axios";
+export interface Hotel {
+  name: string;
+  country: string;
+  stars: number;
+  images: string[];
 }
 
 export interface Flights {
-  id: String,
-  name: String,
-  imgUrl: String,
-  from: String,
-  to: String,
+  id: String;
+  name: String;
+  imgUrl: String;
+  from: String;
+  to: String;
 }
 
 export interface travelers {
-  src: string;
   name: string;
+  imgUrl: string;
   country: string;
+  followers: number;
+  events: [];
 }
-
-const travelers: Array<travelers> = [
-  {
-    src: "https://qtxasset.com/quartz/qcloud1/media/image/2016-12/ethical%20traveler.jpg?VersionId=mIycdotTCoKNtVnW0d2g4wvfA.y.bqOw",
-    name: "Jon Doe",
-    country: "England",
-  },
-  {
-    src: "https://qtxasset.com/quartz/qcloud1/media/image/2016-12/ethical%20traveler.jpg?VersionId=mIycdotTCoKNtVnW0d2g4wvfA.y.bqOw",
-    name: "John Smith",
-    country: "Italy",
-  },
-  {
-    src: "https://qtxasset.com/quartz/qcloud1/media/image/2016-12/ethical%20traveler.jpg?VersionId=mIycdotTCoKNtVnW0d2g4wvfA.y.bqOw",
-    name: "Moshe Doe",
-    country: "Thailand",
-  },
-  {
-    src: "https://qtxasset.com/quartz/qcloud1/media/image/2016-12/ethical%20traveler.jpg?VersionId=mIycdotTCoKNtVnW0d2g4wvfA.y.bqOw",
-    name: "Moshe Doe",
-    country: "Thailand",
-  },
-  {
-    src: "https://qtxasset.com/quartz/qcloud1/media/image/2016-12/ethical%20traveler.jpg?VersionId=mIycdotTCoKNtVnW0d2g4wvfA.y.bqOw",
-    name: "Moshe Doe",
-    country: "Thailand",
-  },
-];
-const arr: Array<Hotel> = [
-  {
-    id: "1",
-    src: "https://www.melares.com/uploads/antalya-turkey749395439.jpg",
-    title: "Antalya Lake",
-  },
-  {
-    id: "2",
-
-    src: "https://media.shichor.co.il/a87daa5f0aeb03962dbac774498bdc87.jpg",
-    title: "Sirmione",
-  },
-  {
-    id: "2",
-    src: "https://upload.wikimedia.org/wikipedia/commons/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg",
-    title: "Paris Tower",
-  },
-
-  {
-    id: "3",
-    src: "https://cf.bstatic.com/xdata/images/hotel/max500/263858373.jpg?k=1818a9f40dbf631c2870111510af6d1eee39fd366d246da6a0b0875f1c87066a&o=&hp=1",
-    title: "Las Vegas",
-  },
-  {
-    id: "3",
-    src: "https://cf.bstatic.com/xdata/images/hotel/max500/263858373.jpg?k=1818a9f40dbf631c2870111510af6d1eee39fd366d246da6a0b0875f1c87066a&o=&hp=1",
-    title: "Las Vegas",
-  },
-];
 
 
 function Mainpage() {
-  const user_email = useAppSelector(userEmail);
-  console.log(user_email);
+  const [travelers, setTravelers] = useState<any[]>([]);
+  const [hotels, setHotels] = useState<any[]>([]);
 
-
+  
   useEffect(() => {
-    axios
-      .get("http://localhost:3004/posts")
-      .then(({ data }) => console.log(data));
+    async function get_travelers() {
+      try {
+        //get the travelers
+        const response = await axios
+          .get("/travelers/users")
+          .then((res) => res.data);
+        setTravelers([...response]);
+        console.log(travelers);
+        // get the hotels
+        const addHotels = await axios
+          .get("/travelers/hotels")
+          .then((res) => res.data);
+        setHotels([...addHotels]);
+        console.log(hotels);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    get_travelers();
   }, []);
-  const name: data = { name: "Home" };
+  const user_email = useAppSelector(userEmail);
+  const name: data = { name: "mainpage" };
   return (
     <div className="wrapper">
+      {}
       <div className="mainpage">
         <div className="header">
           <div className="menu-icon">
@@ -133,17 +98,18 @@ function Mainpage() {
         <div className="grid__items">
           <div className="div_h">
             <h1>Right now at </h1>
-            <a href="">See all</a>
+            <a href="/post">See all</a>
           </div>
 
           <div className="list">
-            {arr.map((hotel, index) => {
+            {hotels.map((hotel, index) => {
               return (
                 <Card
                   key={index}
-                  src={hotel.src}
-                  id={hotel.id}
-                  title={hotel.title}
+                  stars={hotel.stars}
+                  images={hotel.images}
+                  name={hotel.name}
+                  country={hotel.country}
                 />
               );
             })}
@@ -157,11 +123,13 @@ function Mainpage() {
           <div className="list">
             {travelers.map((traveler, index) => {
               return (
-                <Travelles
+                <Travelers
                   key={index}
-                  src={traveler.src}
+                  imgUrl={traveler.imgUrl}
                   name={traveler.name}
                   country={traveler.country}
+                  followers={traveler.followers}
+                  events={traveler.events}
                 />
               );
             })}
