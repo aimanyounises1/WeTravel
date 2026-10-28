@@ -8,15 +8,14 @@ import Cors from "cors";
 const app = express();
 const port = 8001;
 
-const connection_url =
-  "mongodb+srv://aimanyounis:aimanyounises123@cluster0.5i7cm.mongodb.net/travelers-db?retryWrites=true&w=majority";
+const connection_url = process.env.MONGODB_URI?.trim();
+if (!connection_url) {
+  throw new Error("MONGODB_URI is required. Export a MongoDB connection URI before starting the API.");
+}
 
 // Middlewares
 app.use(express.json());
 app.use(Cors());
-
-// DB config
-mongoose.connect(`${connection_url}`);
 
 // API Endpoints
 // default route
@@ -90,6 +89,13 @@ app.get("/travelers/hotels/", (req: any, res: any) => {
   
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+// Start serving only after the configured database connection succeeds.
+mongoose.connect(connection_url).then(() => {
+  app.listen(port, () => {
+    console.log(`API listening on port ${port}`);
+  });
+}).catch(() => {
+  // Connection errors may include the URI. Keep credentials out of application logs.
+  console.error("MongoDB connection failed. Check MONGODB_URI and database access.");
+  process.exitCode = 1;
 });
